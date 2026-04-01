@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CapitalFlow.Api/CapitalFlow.Api.csproj" />
+    <Project Path="src/CapitalFlow.Application/CapitalFlow.Application.csproj" />
+    <Project Path="src/CapitalFlow.Domain/CapitalFlow.Domain.csproj" />
+    <Project Path="src/CapitalFlow.Infrastructure/CapitalFlow.Infrastructure.csproj" />
+    <Project Path="src/CapitalFlow.Persistence/CapitalFlow.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CapitalFlow.Tests/CapitalFlow.Tests.csproj" />
+  </Folder>
+</Solution>
