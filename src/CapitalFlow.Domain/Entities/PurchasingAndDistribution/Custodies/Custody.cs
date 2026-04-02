@@ -2,16 +2,15 @@ using CapitalFlow.Domain.Entities.Common;
 using CapitalFlow.Domain.Entities.Customers.GraphicAccounts;
 using CapitalFlow.Domain.Entities.PurchasingAndDistribution.Distributions;
 
-namespace CapitalFlow.Domain.Entities.PurchasingAndDistribution.BuyOrders;
+namespace CapitalFlow.Domain.Entities.PurchasingAndDistribution.Custodies;
 
-public sealed class BuyOrder : Entity
+public sealed class Custody : Entity
 {
-    public Guid ContaMasterId { get; set; }
+    public Guid GraphicAccountId { get; set; }
     public string Ticker { get; set; } = null!;
     public int Quantity { get; set; }
-    public decimal UnitPrice { get; set; }
-    public MarketType Type { get; set; }
-    public DateTime ExecutedAt { get; set; }
+    public decimal AveragePrice { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public GraphicAccount? GraphicAccount { get; set; }
     public ICollection<Distribution>? Distributions { get; set; }
 }

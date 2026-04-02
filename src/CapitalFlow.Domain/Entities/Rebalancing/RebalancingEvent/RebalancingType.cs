@@ -1,4 +1,4 @@
-namespace CapitalFlow.Domain.Entities.Rebalancing.Rebalancing;
+namespace CapitalFlow.Domain.Entities.Rebalancing.RebalancingEvent;
 
 public enum RebalancingType
 {
