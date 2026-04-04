@@ -1,7 +1,7 @@
 using CapitalFlow.Domain.Entities.Common;
 using CapitalFlow.Domain.Entities.Customers.Customers;
 
-namespace CapitalFlow.Domain.Entities.Rebalancing.EventIR;
+namespace CapitalFlow.Domain.Entities.Rebalancing.EventIRs;
 
 public sealed class EventIR : Entity
 {

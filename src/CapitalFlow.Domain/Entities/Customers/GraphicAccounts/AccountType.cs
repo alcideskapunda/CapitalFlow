@@ -5,5 +5,3 @@ public enum AccountType
     Master = 1,
     Filhote = 2
 }
-
-// Tipo (ENUM: 'MASTER','FILHOTE')

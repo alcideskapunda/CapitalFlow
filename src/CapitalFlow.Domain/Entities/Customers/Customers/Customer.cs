@@ -1,6 +1,6 @@
 using CapitalFlow.Domain.Entities.Common;
 using CapitalFlow.Domain.Entities.Customers.GraphicAccounts;
-using CapitalFlow.Domain.Entities.Rebalancing.EventIR;
+using CapitalFlow.Domain.Entities.Rebalancing.EventIRs;
 using CapitalFlow.Domain.Entities.Rebalancing.RebalancingEvent;
 using CapitalFlow.Domain.Entities.Users;
 

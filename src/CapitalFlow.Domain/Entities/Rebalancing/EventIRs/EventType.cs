@@ -1,4 +1,4 @@
-namespace CapitalFlow.Domain.Entities.Rebalancing.EventIR;
+namespace CapitalFlow.Domain.Entities.Rebalancing.EventIRs;
 
 public enum EventType
 {
