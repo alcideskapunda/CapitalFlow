@@ -10,7 +10,6 @@ public sealed class GraphicAccount : Entity
     public Guid CustumerId { get; set; }
     public string AccountNumber { get; set; } = null!;
     public AccountType Type { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public Customer? Customer { get; set; }
     public ICollection<Custody>? Custodies { get; set; }
     public ICollection<BuyOrder>? BuyOrders { get; set; }

@@ -10,7 +10,6 @@ public sealed class Custody : Entity
     public string Ticker { get; set; } = null!;
     public int Quantity { get; set; }
     public decimal AveragePrice { get; set; }
-    public DateTime UpdatedAt { get; set; }
     public GraphicAccount? GraphicAccount { get; set; }
     public ICollection<Distribution>? Distributions { get; set; }
 }
