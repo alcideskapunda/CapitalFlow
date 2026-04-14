@@ -14,7 +14,7 @@ public sealed class Customer : Entity
     public Guid UserId { get; set; }
     public decimal MonthlyAmount { get; set; }
     public bool Status { get; set; }
-    public DateTime JoinDate { get; set; } = DateTime.UtcNow;
+    public DateTime JoinDate { get; set; }
     public User? User { get; set; }
     public GraphicAccount? GraphicAccount { get; set; }
     public ICollection<EventIR>? EventIRs { get; set; }
