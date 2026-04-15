@@ -1,41 +1,71 @@
-var builder = WebApplication.CreateBuilder(args);
+global using FastEndpoints;
+using CapitalFlow.Api.Authorization;
+using CapitalFlow.Api.Configuration;
+using CapitalFlow.Infrastructure;
+using CapitalFlow.Persistence.DependencyInjection;
+using FastEndpoints.Security;
+using FastEndpoints.Swagger;
+using Scalar.AspNetCore;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+namespace CapitalFlow.Api;
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+internal class Program
 {
-    app.MapOpenApi();
-}
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+        {
+            builder.ConfigureLogging();
+            ConfigureCors(builder);
 
-app.UseHttpsRedirection();
+            builder.Services.AddAuthenticationJwtBearer(options =>
+                options.SigningKey = builder.Configuration["Jwt:SigningKey"]);
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+            builder.Services.AddCapitalFlowAuthorization();
+            builder.Services.AddFastEndpoints().SwaggerDocument(o =>
+            {
+                // With explicit .WithTags(...) on endpoints, path-segment auto-tagging duplicates each operation in OpenAPI/Scalar.
+                o.AutoTagPathSegmentIndex = 0;
+            });
+            builder.Services.AddPersistence(builder.Configuration);
+            builder.Services.AddInfrastructure(builder.Configuration);
+        }
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+        var app = builder.Build();
+        {
+            app.UseCors("AllowAllOrigins");
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseFastEndpoints(config => config.Errors.UseProblemDetails());
 
-app.Run();
+            if (app.Environment.IsDevelopment())
+            {
+                // NSwag serves the OpenAPI document; FastEndpoints metadata (Summary.Params, XML docs, etc.) is included here.
+                // Microsoft.AspNetCore.OpenApi (MapOpenApi) does not integrate with FastEndpoints and omits most FE-specific docs.
+                var baseUrl = builder.Configuration["ApiBaseUrl"];
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+                app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
+
+                app.MapScalarApiReference(o =>
+                {
+                    o.AddDocument("v1");
+                    o.SortTagsAlphabetically();
+                    o.SortOperationsByMethod();
+                });
+            }
+        }
+    }
+
+    private static void ConfigureCors(WebApplicationBuilder builder)
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAllOrigins", policyBuilder =>
+            {
+                policyBuilder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
+    }
 }

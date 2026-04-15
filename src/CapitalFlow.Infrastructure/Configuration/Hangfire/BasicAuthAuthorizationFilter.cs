@@ -13,10 +13,7 @@ public class BasicAuthAuthorizationFilter : IDashboardAuthorizationFilter
 {
     private readonly BasicAuthAuthorizationFilterOptions _options;
 
-    public BasicAuthAuthorizationFilter()
-        : this(new BasicAuthAuthorizationFilterOptions())
-    {
-    }
+    public BasicAuthAuthorizationFilter() : this(new BasicAuthAuthorizationFilterOptions()) { }
 
     public BasicAuthAuthorizationFilter(BasicAuthAuthorizationFilterOptions options)
     {
@@ -31,7 +28,6 @@ public class BasicAuthAuthorizationFilter : IDashboardAuthorizationFilter
 
     public bool Authorize(DashboardContext _context)
     {
-
         var context = _context.GetHttpContext();
         if ((_options.SslRedirect == true) && (context.Request.Scheme != "https"))
         {
@@ -67,8 +63,7 @@ public class BasicAuthAuthorizationFilter : IDashboardAuthorizationFilter
                     {
                         return _options
                             .Users
-                            .Any(user => user.Validate(login, password, _options.LoginCaseSensitive))
-                               || Challenge(context);
+                            .Any(user => user.Validate(login, password, _options.LoginCaseSensitive)) || Challenge(context);
                     }
                 }
             }
