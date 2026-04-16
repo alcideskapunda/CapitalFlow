@@ -38,6 +38,10 @@ public static class DependencyInjectionExtensions
                         mysqlOptions
                             .EnableRetryOnFailure()
                             .TranslateParameterizedCollectionsToConstants());
+
+                // DEV ONLY
+                options.EnableSensitiveDataLogging();
+                options.EnableDetailedErrors();
             },
             contextLifetime: ServiceLifetime.Scoped,
             optionsLifetime: ServiceLifetime.Singleton);
