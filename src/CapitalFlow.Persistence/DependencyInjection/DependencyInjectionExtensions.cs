@@ -23,7 +23,7 @@ public static class DependencyInjectionExtensions
         // services.AddScoped<ICustomerRepository, CustomerRepository>();
         // services.AddScoped<IBuyOrderRepository, BuyOrderRepository>();
 
-        services.AddScoped<AuditingInterceptor>();
+        // services.AddScoped<AuditingInterceptor>();
     }
 
     private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
