@@ -2,6 +2,7 @@ global using FastEndpoints;
 using CapitalFlow.Api.Authorization;
 using CapitalFlow.Api.Configuration;
 using CapitalFlow.Infrastructure;
+using CapitalFlow.Infrastructure.Configuration.Hangfire;
 using CapitalFlow.Persistence.DependencyInjection;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
@@ -54,6 +55,9 @@ internal class Program
                 });
             }
         }
+
+        app.UseHangfireDashboard();
+        app.Run();
     }
 
     private static void ConfigureCors(WebApplicationBuilder builder)
