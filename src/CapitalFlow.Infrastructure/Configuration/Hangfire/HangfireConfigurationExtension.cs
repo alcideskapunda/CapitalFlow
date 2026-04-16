@@ -19,12 +19,10 @@ public static class HangfireConfigurationExtension
             hangFireConfiguration.UseRecommendedSerializerSettings();
             hangFireConfiguration.UseSerilogLogProvider();
 
-
-            HangFireSecrets secrets = configuration.GetSection("Hangfire")
-                .Get<HangFireSecrets>();
+            var connectionString = configuration.GetConnectionString("HangfireConnection");
 
             Log.Information("Using MySql storage");
-            ConfigureHangFireMySqlStorage(hangFireConfiguration, secrets.ConnectionString);
+            ConfigureHangFireMySqlStorage(hangFireConfiguration, connectionString!);
 
             Log.Information("Hangfire configured");
         });
@@ -41,7 +39,7 @@ public static class HangfireConfigurationExtension
             {
                 PrepareSchemaIfNecessary = true,
                 TablesPrefix = "Hangfire_",
-                QueuePollInterval = TimeSpan.FromMinutes(1),
+                QueuePollInterval = TimeSpan.FromSeconds(30),
             }));
     }
 
