@@ -5,15 +5,10 @@ namespace CapitalFlow.Api.Features.Common.Pagination;
 
 public abstract record PaginationQuery<TEntity> : IQuery<PaginatedResult<TEntity>>
 {
-    [FromQuery]
     public int? Page { get; set; }
-    [FromQuery]
     public int? PageSize { get; set; }
-    [FromQuery]
     public DateTime? StartDate { get; set; }
-    [FromQuery]
     public DateTime? EndDate { get; set; }
-    [FromQuery]
     public string? Search { get; set; }
 
     public async Task<PaginationData> GetPaginationDataAsync<T>(IQueryable<T> query, CancellationToken ct)
