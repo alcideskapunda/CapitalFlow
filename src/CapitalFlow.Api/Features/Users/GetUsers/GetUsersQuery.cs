@@ -3,8 +3,4 @@ using CapitalFlow.Api.Features.Users.Common;
 
 namespace CapitalFlow.Api.Features.Users.GetUsers;
 
-public record GetUsersQuery : PaginationQuery<UserViewModel>
-{
-    [FromQuery]
-    public string? Email { get; set; }
-}
+public record GetUsersQuery : PaginationQuery<UserViewModel> { }

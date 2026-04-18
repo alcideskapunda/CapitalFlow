@@ -26,11 +26,6 @@ public class GetUsersQueryHandler : ICommandHandler<GetUsersQuery, PaginatedResu
             users = users.Where(d => d.Name.ToLower().Contains(query.Search.ToLower()));
         }
 
-        if (query.Email != null)
-        {
-            users = users.Where(u => u.Email == query.Email);
-        }
-
         var paginationData = await query.GetPaginationDataAsync(users, cancellationToken);
 
         var items = await users.OrderByDescending(d => d.CreatedAt)

@@ -15,8 +15,6 @@ public class GetUsersEndpoint : Endpoint<GetUsersQuery, Results<Ok<PaginatedResu
             s.Description =
                 "Returns users ordered by creation date (newest first). Results can be narrowed by creation date, a case-insensitive partial match on name, or an exact match on email.";
             s.AddPaginationQueryParams<GetUsersQuery, UserViewModel>();
-            s.Params[nameof(GetUsersQuery.Email)] =
-                "If set, returns only the user whose email equals this value exactly (case-sensitive as stored).";
         });
         Description(desc => desc
             .WithTags("Users"));
