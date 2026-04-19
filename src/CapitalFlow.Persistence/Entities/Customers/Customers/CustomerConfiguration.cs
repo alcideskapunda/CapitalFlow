@@ -17,13 +17,13 @@ public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .IsRequired();
 
         builder.HasIndex(x => x.Name);
-        builder.HasIndex(x => x.CPF).IsUnique();
+        builder.HasIndex(x => x.Cpf).IsUnique();
         builder.HasIndex(x => x.Email).IsUnique();
 
         builder.Property(e => e.Name)
             .HasMaxLength(ConfigurationConstants.NameMaxLength)
             .IsRequired();
-        builder.Property(e => e.CPF)
+        builder.Property(e => e.Cpf)
             .HasMaxLength(ConfigurationConstants.CpfMaxLength)
             .IsRequired();
         builder.Property(e => e.Email)

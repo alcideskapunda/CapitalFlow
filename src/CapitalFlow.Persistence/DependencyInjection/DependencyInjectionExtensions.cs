@@ -1,5 +1,7 @@
+using CapitalFlow.Domain.Entities.Customers.Customers;
 using CapitalFlow.Domain.Entities.Users;
 using CapitalFlow.Persistence.Database;
+using CapitalFlow.Persistence.Entities.Customers.Customers;
 using CapitalFlow.Persistence.Entities.Users.Users;
 using CapitalFlow.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +22,7 @@ public static class DependencyInjectionExtensions
     {
         // 👉 quando criar tiver repositories, adiciona aqui
         services.AddScoped<IUserRepository, UserRepository>();
-        // services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         // services.AddScoped<IBuyOrderRepository, BuyOrderRepository>();
 
         // services.AddScoped<AuditingInterceptor>();
