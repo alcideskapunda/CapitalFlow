@@ -21,11 +21,13 @@ public sealed class CancelSubscriptionCommandHandler : ICommandHandler<CancelSub
         
         if (customer is null)
         {
+            _logger.LogWarning("Customer with id {CustomerId} does not exist", request.Id);
             return Error.NotFound(code: "CLIENTE_NAO_ENCONTRADO", description: "Customer notfound");
         }
         
         if (!customer.Status)
         {
+            _logger.LogWarning("Customer {CustomerId} already unsubscribed", request.Id);
             return Error.Conflict("CUSTOMER_ALREADY_INACTIVE", "Customer already unsubscribed");
         }
 
@@ -36,6 +38,6 @@ public sealed class CancelSubscriptionCommandHandler : ICommandHandler<CancelSub
         
         _logger.LogInformation("Customer {CustomerId} cancelled subscription", request.Id);
 
-        return ErrorOr.Result.Success;
+        return Result.Success;
     }
 }

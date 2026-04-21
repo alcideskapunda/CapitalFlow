@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CapitalFlow.Api.Features.Customers.Customers.CancelSubscription;
 
-public sealed class CancelSubscriptionEndpoint : Endpoint<CancelSubscriptionCommand, Results<Ok, ProblemDetails>>
+public sealed class CancelSubscriptionEndpoint : EndpointWithoutRequest<Results<Ok, ProblemDetails>>
 {
     public override void Configure()
     {
@@ -20,9 +20,11 @@ public sealed class CancelSubscriptionEndpoint : Endpoint<CancelSubscriptionComm
             .WithTags("Customers"));
     }
 
-    public override async Task<Results<Ok, ProblemDetails>> ExecuteAsync(CancelSubscriptionCommand req, CancellationToken ct)
+    public override async Task<Results<Ok, ProblemDetails>> ExecuteAsync(CancellationToken ct)
     {
-        var result = await req.ExecuteAsync(ct);
+        var id = Route<Guid>("id");
+        var command = new CancelSubscriptionCommand { Id = id };
+        var result = await command.ExecuteAsync(ct);
         if (result.IsError)
         {
             return result.ToProblemDetails();
