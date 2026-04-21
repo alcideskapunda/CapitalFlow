@@ -17,7 +17,8 @@ public sealed class BasketConfiguration : IEntityTypeConfiguration<Basket>
             .IsRequired();
 
         builder.HasIndex(x => x.Name);
-        builder.HasIndex(x => x.Name)
+        builder.HasIndex(x => x.Status)
+            .HasFilter("Status = true")
             .IsUnique();
 
         builder.Property(x => x.Name)
