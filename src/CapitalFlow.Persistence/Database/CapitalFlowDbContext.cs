@@ -24,6 +24,7 @@ public class CapitalFlowDbContext : DbContext
 
     public DbSet<User> Users { get; private set; }
     public DbSet<Customer> Customers { get; private set; }
+    public DbSet<CustomerContributionHistory>  CustomerContributionHistories { get; private set; }
     public DbSet<GraphicAccount> GraphicAccounts { get; private set; }
     public DbSet<Custody> Custodies { get; private set; }
     public DbSet<Distribution> Distributions { get; private set; }
