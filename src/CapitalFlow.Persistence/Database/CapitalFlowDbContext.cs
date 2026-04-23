@@ -30,6 +30,7 @@ public class CapitalFlowDbContext : DbContext
     public DbSet<Distribution> Distributions { get; private set; }
     public DbSet<BuyOrder> BuyOrders { get; private set; }
     public DbSet<Quote> Quotes { get; private set; }
+    public DbSet<B3StockQuote> B3StockQuotes { get; private set; }
     public DbSet<EventIR> EventIRs { get; private set; }
     public DbSet<RebalancingEvent> RebalancingEvents { get; private set; }
     public DbSet<Basket> Baskets { get; private set; }

@@ -3,9 +3,11 @@ using CapitalFlow.Api.Authorization;
 using CapitalFlow.Api.Configuration;
 using CapitalFlow.Infrastructure;
 using CapitalFlow.Infrastructure.Configuration.Hangfire;
+using CapitalFlow.Infrastructure.Features.Quotes;
 using CapitalFlow.Persistence.DependencyInjection;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
+using Hangfire;
 using Scalar.AspNetCore;
 
 namespace CapitalFlow.Api;
@@ -57,6 +59,20 @@ internal class Program
         }
 
         app.UseHangfireDashboard();
+        
+        using (var scope = app.Services.CreateScope())
+        {
+            var pathFile = "/home/anterokapunda/Documents/CapitalFlow/cotacoes/COTAHIST_D20042026.TXT";
+            var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+            
+            recurringJobManager.AddOrUpdate<B3QuoteIngestionService>(
+                "ingestao-cotacoes-b3",
+                service => service.ProcessFileAsync(pathFile, CancellationToken.None),
+                Cron.Daily(22)
+            );
+            
+            // recurringJobManager.Trigger("ingestao-cotacoes-b3");
+        }
         app.Run();
     }
 

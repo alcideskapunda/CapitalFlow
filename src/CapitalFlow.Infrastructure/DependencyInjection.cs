@@ -1,5 +1,7 @@
+using CapitalFlow.Application.Features.Quotes;
 using CapitalFlow.Application.Features.Users.Auth;
 using CapitalFlow.Infrastructure.Configuration.Hangfire;
+using CapitalFlow.Infrastructure.Features.Quotes;
 using CapitalFlow.Infrastructure.Features.Users.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,9 @@ public static class DependencyInjection
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
+        services.AddScoped<IB3QuoteParser, B3QuoteParser>();
+        services.AddScoped<B3QuoteIngestionService>();
+
         services.AddHangfire(configuration);
 
         return services;

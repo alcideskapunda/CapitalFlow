@@ -99,6 +99,8 @@ public sealed class UpsertRecommendationBasketCommonHandler : ICommandHandler<Up
                 Percentage =  x.Percentage,
             }).ToList()
         };
+        
+        _database.Baskets.Add(basket); 
 
         await _database.SaveChangesAsync(ct);
         await transaction.CommitAsync(ct);
